@@ -1,0 +1,50 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import random
+import time
+
+lista=[]
+tamanhos=[1000,10000,30000,60000]
+loops=[]
+tempos=[]
+def geraLista(tamanho):
+  x=[]
+  while(len(x)<tamanho):
+    j=random.randrange(tamanho)
+    if j not in x:
+      x.append(j)
+  return x
+
+def geraListaPiorCaso(tamanho):
+  x=[]
+  for i in range(tamanho,0,-1):
+    x.append(i)
+  return x
+
+def bubblesort(lista):
+    now=time.time()
+    loop = 0
+    n = len(lista)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            loop+=1
+            if lista[j] > lista[j+1] :
+                lista[j], lista[j+1] = lista[j+1], lista[j]
+    then=time.time()
+    return loop,(then-now)
+
+
+for i in tamanhos:
+  #lista=geraLista(i)
+  lista=geraListaPiorCaso(i)
+  loop,tempo=bubblesort(lista)
+  loops.append(loop)
+  tempos.append(tempo)
+
+# Plot the data
+plt.plot(tamanhos,tempos)
+#print(loops)
+#print(tempos)
+# Show the plot
+plt.show()
+
